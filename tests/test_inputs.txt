@@ -1,0 +1,2 @@
+Sample Input 1: Target = 42, Range = [1, 100]
+Sample Input 2: Target = 87, Range = [1, 100]
