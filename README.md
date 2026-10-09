@@ -1,69 +1,35 @@
-# Number Guessing AI
+# Number Guessing AI · Constraint Satisfaction & Reasoning Engine (v2.0)
 
-## Problem Statement
-Traditional target-guessing implementations often rely on naive linear scanning, resulting in inefficient search operations ($O(N)$ execution time). This project formulates an optimal state-space decision tree to guess a user's secret integer within the range $[1, 100]$ in minimal attempts.
+An interactive and automated Decision-Making AI agent engineered to solve bounded integer search problems using **Constraint Satisfaction Problem (CSP)** models, **Knowledge Representation & Logical Inference**, and **Explainable AI (XAI)** principles.
 
-## Objectives
-- Design an optimal decision-tree agent using standard search bounds.
-- Guarantee minimal guess attempts ($\le 7$ steps for $N=100$).
-- Handle user feedback validation and edge cases like contradictory responses.
+---
 
-## Technologies Used
-- **Programming Language:** Python 3.x
-- **Core Library:** Built-in Standard Library (No external dependencies)
-- **Version Control:** Git & GitHub
+## Key Extension Features (v2.0)
 
-## Dataset
-- **Domain:** Integers in range $S \in [1, 100]$
-- **Feedback Inputs:** 
-  - `h`: Target is **Higher** than guess
-  - `l`: Target is **Lower** than guess
-  - `c`: Target is **Correct**
+1. **CSP Search Engine Layer:**
+   - **Forward Checking:** Dynamically prunes search domain upon directional feedback (`higher`/`lower`).
+   - **Minimum Remaining Values (MRV) Heuristic:** Selects median candidate values to maximize entropy reduction per step.
 
-## Methodology
-The core algorithm uses **Binary Search** to split the search interval $[L, R]$ in half with every query:
+2. **Knowledge Representation & Reasoning Layer:**
+   - **Logical Inference:** Infers domain filtering rules from propositional facts (e.g., parity and divisibility clues).
+   - **Rule Engine:** Combines constraints with domain bounds before search execution.
 
-$$M = \left\lfloor \frac{L + R}{2} \right\rfloor$$
+3. **Applied & Responsible AI Layer:**
+   - **Explainable AI (XAI):** Outputs step-by-step audit logs explaining domain size reductions, pruned candidates, and mathematical justifications for every guess.
+   - **Fairness & Governance:** Deterministic logic eliminates bias, ensuring uniform performance across all valid secret number ranges.
 
-This maximizes information entropy gain per step, continuously halving the problem space until convergence.
+---
 
-## System Architecture
+## Project Structure
+
 ```text
-[ User Selects Secret Number (1-100) ]
-                 │
-                 ▼
-     [ Compute Midpoint (M) ] ◄───────────┐
-                 │                        │
-                 ▼                        │
-       [ Prompt User Input ]              │
-                 │                        │
-    ┌────────────┼────────────┐           │
-    ▼            ▼            ▼           │
-  ('h')        ('l')        ('c')         │
- Higher       Lower        Correct        │
-    │            │            │           │
- L = M + 1    R = M - 1   Terminate       │
-    │            │            │           │
-    └────────────┴────────────┴───────────┘
-def binary_search_ai():
-    low, high = 1, 100
-    attempts = 0
-    print("Think of a number between 1 and 100.")
-
-    while low <= high:
-        guess = (low + high) // 2
-        attempts += 1
-        feedback = input(f"Attempt {attempts}: Is it {guess}? (h/l/c): ").strip().lower()
-
-        if feedback == 'c':
-            print(f"Success! Guessed {guess} in {attempts} attempts.")
-            return
-        elif feedback == 'h':
-            low = guess + 1
-        elif feedback == 'l':
-            high = guess - 1
-        else:
-            print("Invalid input! Use 'h', 'l', or 'c'.")
-
-if __name__ == "__main__":
-    binary_search_ai()
+number-guessing-ai/
+├── src/
+│   └── main.py              # Enhanced CSP, Knowledge Base & Responsible AI Engine
+├── tests/
+│   ├── test_inputs.txt      # Sample input dataset
+│   └── test_csp_logic.py    # Automated unit tests for CSP and logic modules
+├── docs/
+│   └── report.md            # Extended technical report (v2.0)
+├── LICENSE                  # MIT License
+└── README.md                # Project documentation
